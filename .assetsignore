@@ -4,3 +4,5 @@ README.md
 .assetsignore
 node_modules
 .git
+tools
+assets/og.svg
