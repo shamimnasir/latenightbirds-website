@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14283a"/><stop offset="1" stop-color="#2f6f8f"/></linearGradient>
+  <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#f6d58e" stop-opacity=".35"/><stop offset="1" stop-color="#f6d58e" stop-opacity="0"/></radialGradient></defs>
+  <rect width="720" height="480" fill="url(#g)"/>
+  <circle cx="360" cy="240" r="260" fill="url(#glow)"/>
+  <circle cx="40" cy="40" r="1.4" fill="#fffefd" opacity=".85"/><circle cx="250" cy="60" r="1.9" fill="#fffefd" opacity=".85"/><circle cx="560" cy="50" r="1.4" fill="#fffefd" opacity=".85"/><circle cx="520" cy="300" r="2.4" fill="#fffefd" opacity=".85"/><circle cx="120" cy="260" r="1.4" fill="#fffefd" opacity=".85"/><circle cx="680" cy="330" r="1.9" fill="#fffefd" opacity=".85"/><circle cx="420" cy="30" r="1.4" fill="#fffefd" opacity=".85"/>
+  <g transform="translate(260 120) scale(1.4)">
+      <rect x="20" y="58" width="128" height="92" rx="12" fill="#fffefd"/>
+      <path d="M26 66l58 46 58-46" fill="none" stroke="#14283a" stroke-width="8" stroke-linejoin="round"/>
+      <path d="M150 34l-18 34h16l-10 30 28-40h-16l10-24z" fill="#f6d58e"/>
+  </g>
+  <rect y="430" width="720" height="50" fill="#0c0e22" opacity=".35"/>
+</svg>

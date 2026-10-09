@@ -94,7 +94,7 @@ def load_posts():
         text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", body))).strip()
         posts.append(dict(
             slug=a["slug"], title=nodash(a["title"]), body=body, excerpt=nodash(a["excerpt"]),
-            img=COVER, date=dt, pretty=dt.strftime("%B %-d, %Y"), iso=dt.date().isoformat(),
+            img=f"cover-{a['slug']}.svg", date=dt, pretty=dt.strftime("%B %-d, %Y"), iso=dt.date().isoformat(),
             mins=max(1, math.ceil(len(text.split()) / 230)),
             takeaways=[nodash(t) for t in a["takeaways"]],
             faqs=[(nodash(q), nodash(v)) for q, v in a["faqs"]],
