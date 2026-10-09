@@ -242,3 +242,8 @@ cite{display:block;margin-top:12px;font:500 13px var(--sans);font-style:normal;c
 .note.warn strong{color:#c2185b}
 .prose h2+p{margin-top:0}
 .prose ul li,.prose ol li{line-height:1.6}
+
+/* code blocks for prompts */
+.prose pre{background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:20px 0 28px;overflow-x:auto;font:400 14px/1.6 ui-monospace,Menlo,Consolas,monospace;color:var(--ink);white-space:pre-wrap;word-break:break-word}
+.prose pre code{font:inherit;background:none;padding:0}
+.prose h3{font:700 22px/1.25 var(--serif);margin:1.6em 0 .4em}

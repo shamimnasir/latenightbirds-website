@@ -73,6 +73,13 @@ MOTIFS = {
       <rect x="20" y="58" width="128" height="92" rx="12" fill="{fg}"/>
       <path d="M26 66l58 46 58-46" fill="none" stroke="{bg}" stroke-width="8" stroke-linejoin="round"/>
       <path d="M150 34l-18 34h16l-10 30 28-40h-16l10-24z" fill="{accent}"/>''',
+    # terminal window with a prompt: Claude prompts
+    "how-to-automate-seo-with-claude": '''
+      <rect x="14" y="36" width="172" height="128" rx="14" fill="{fg}"/>
+      <rect x="14" y="36" width="172" height="26" rx="12" fill="{accent}"/>
+      <circle cx="32" cy="49" r="5" fill="{bg}"/><circle cx="48" cy="49" r="5" fill="{bg}"/><circle cx="64" cy="49" r="5" fill="{bg}"/>
+      <path d="M36 88l20 14-20 14" fill="none" stroke="{bg}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="70" y="112" width="60" height="9" rx="4" fill="{bg}"/>''',
 }
 
 # Palettes: (sky top, sky bottom, foreground, accent, background used inside motif)
@@ -87,6 +94,7 @@ PALETTES = {
     "best-ai-tools-for-content-marketing": ("#1c1f2e", "#5b4bb7", "#fffefd", "#7fe0c4", "#1c1f2e"),
     "does-ai-generated-content-hurt-seo": ("#2a2a3d", "#6e6a9a", "#fffefd", "#ffb4a2", "#2a2a3d"),
     "email-automation-workflows-every-business-needs": ("#14283a", "#2f6f8f", "#fffefd", "#f6d58e", "#14283a"),
+    "how-to-automate-seo-with-claude": ("#0d1f2d", "#2a6f97", "#fffefd", "#f6d58e", "#0d1f2d"),
 }
 
 # A few stars per cover, placed differently so each sky looks distinct.

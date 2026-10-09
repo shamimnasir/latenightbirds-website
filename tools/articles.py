@@ -1641,3 +1641,10 @@ RELATED = {
     "ways-to-search-on-google-that-always-gives-you-better-result-10-tricks": ["what-is-ai-seo-and-how-to-do-it", "how-to-get-cited-by-chatgpt-claude-and-perplexity", "content-marketing-strategy-step-by-step"],
     "i-dont-feel-like-writing-blogging-the-fixes": ["content-marketing-strategy-step-by-step", "best-ai-tools-for-content-marketing", "email-automation-workflows-every-business-needs"],
 }
+
+# New article kept in its own module so long guides stay easy to edit.
+from article_claude_seo import ARTICLE as _CLAUDE_SEO_ARTICLE, RELATED as _CLAUDE_SEO_RELATED, RELATED_UPDATES as _CLAUDE_SEO_UPDATES
+
+ARTICLES.append(_CLAUDE_SEO_ARTICLE)
+RELATED[_CLAUDE_SEO_ARTICLE["slug"]] = _CLAUDE_SEO_RELATED
+RELATED.update(_CLAUDE_SEO_UPDATES)
