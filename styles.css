@@ -210,3 +210,23 @@ cite{display:block;margin-top:12px;font:500 13px var(--sans);font-style:normal;c
   .prose{font-size:19px}.prose h2,.prose h3{font-size:26px}
   .block{margin-top:64px}
 }
+
+/* article extras: key takeaways and FAQ */
+.takeaways{margin:0 0 44px;padding:26px 28px;border-radius:18px;background:var(--bg-2);border:1px solid var(--line)}
+.takeaways .tk-label{font:600 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:12px}
+.takeaways ul{margin:0;padding-left:1.2em;font:400 17px/1.55 var(--serif);color:var(--ink)}
+.takeaways li{margin:.5em 0}
+.takeaways li::marker{color:var(--accent-ink)}
+.faq{margin-top:60px;padding-top:40px;border-top:1px solid var(--line)}
+.faq h2{font-size:30px;letter-spacing:-.025em;margin-bottom:22px}
+.faq .qa{padding:20px 0;border-bottom:1px solid var(--line)}
+.faq .qa:last-child{border-bottom:0}
+.faq h3{font:700 19px/1.35 var(--serif);letter-spacing:-.015em;margin-bottom:8px}
+.faq p{font:400 17px/1.6 var(--serif);color:var(--ink-2)}
+.related{margin-top:56px;padding-top:36px;border-top:1px solid var(--line)}
+.related h2{font:600 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:14px}
+.related ul{list-style:none;padding:0;margin:0}
+.related li{border-bottom:1px solid var(--line)}
+.related li:last-child{border-bottom:0}
+.related a{display:block;padding:14px 0;font:700 19px/1.3 var(--serif);letter-spacing:-.015em}
+.related a:hover{color:var(--accent-ink)}

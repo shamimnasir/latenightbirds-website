@@ -5,8 +5,12 @@ Run from the repo root:  python3 tools/build.py
 Source data for posts lives in tools/posts.json (exported from the old WordPress site).
 """
 import json, html, math, os, re, struct
+import sys
 from datetime import datetime
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from articles import ARTICLES, COVER, RELATED
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://latenightbirds.com"
@@ -83,6 +87,17 @@ def load_posts():
             slug=p["slug"], title=title, body=body, excerpt=excerpt, img=feat,
             date=dt, pretty=dt.strftime("%B %-d, %Y"), iso=dt.date().isoformat(),
             mins=max(1, math.ceil(len(text.split()) / 230)),
+        ))
+    for a in ARTICLES:
+        dt = datetime.fromisoformat(a["date"])
+        body = nodash(a["body"].strip())
+        text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", body))).strip()
+        posts.append(dict(
+            slug=a["slug"], title=nodash(a["title"]), body=body, excerpt=nodash(a["excerpt"]),
+            img=COVER, date=dt, pretty=dt.strftime("%B %-d, %Y"), iso=dt.date().isoformat(),
+            mins=max(1, math.ceil(len(text.split()) / 230)),
+            takeaways=[nodash(t) for t in a["takeaways"]],
+            faqs=[(nodash(q), nodash(v)) for q, v in a["faqs"]],
         ))
     posts.sort(key=lambda x: x["date"], reverse=True)
     return posts
@@ -304,14 +319,46 @@ def blog_index(posts):
     return out + footer()
 
 
+def takeaways_html(p):
+    items = p.get("takeaways")
+    if not items:
+        return ""
+    lis = "".join(f"<li>{html.escape(t)}</li>" for t in items)
+    return f'<aside class="takeaways" aria-label="Key takeaways"><p class="tk-label">Key takeaways</p><ul>{lis}</ul></aside>'
+
+
+def related_html(p, by_slug):
+    slugs = RELATED.get(p["slug"], [])
+    items = [by_slug[s] for s in slugs if s in by_slug]
+    if not items:
+        return ""
+    lis = "".join(f'<li><a href="/blog/{x["slug"]}/">{html.escape(x["title"])}</a></li>' for x in items)
+    return f'<section class="related"><h2>Related reading</h2><ul>{lis}</ul></section>'
+
+
+def faq_html(faqs):
+    if not faqs:
+        return ""
+    items = "".join(f'<div class="qa"><h3>{html.escape(q)}</h3><p>{html.escape(v)}</p></div>' for q, v in faqs)
+    return f'<section class="faq"><h2>Frequently asked questions</h2>{items}</section>'
+
+
+BY_SLUG = {}
+
+
 def post_page(p, posts):
     url = f"/blog/{p['slug']}/"
     ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": p["title"], "datePublished": p["iso"],
           "image": f"{SITE}/blog/img/{p['img']}", "author": {"@type": "Organization", "name": "LateNightBirds"},
           "publisher": {"@type": "Organization", "name": "LateNightBirds LLC", "logo": {"@type": "ImageObject", "url": SITE + "/assets/logo-mark.svg"}},
           "mainEntityOfPage": SITE + url}
+    faqs = p.get("faqs", [])
+    if faqs:
+        fq = {"@context": "https://schema.org", "@type": "FAQPage",
+              "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": v}} for q, v in faqs]}
     extra = (f'<meta property="article:published_time" content="{p["iso"]}">'
-             f'<script type="application/ld+json">{json.dumps(ld)}</script>')
+             f'<script type="application/ld+json">{json.dumps(ld)}</script>'
+             + (f'<script type="application/ld+json">{json.dumps(fq)}</script>' if faqs else ""))
     out = head(f'{p["title"]} | LateNightBirds', p["excerpt"], url, og_type="article", extra=extra)
     out += header("blog")
     others = [x for x in posts if x["slug"] != p["slug"]][:3]
@@ -320,7 +367,9 @@ def post_page(p, posts):
 <h1>{html.escape(p["title"])}</h1>
 <div class="byline"><img src="/assets/logo-mark.svg" alt="" width="42" height="42"><div><b>LateNightBirds Team</b><span>{p["pretty"]} · {p["mins"]} min read</span></div></div>
 <figure class="hero-img"><img src="/blog/img/{p["img"]}" alt="" width="720" height="480"></figure>
-<div class="prose">{p["body"]}</div>
+{takeaways_html(p)}<div class="prose">{p["body"]}</div>
+{faq_html(faqs)}
+{related_html(p, BY_SLUG)}
 </article>
 <div class="after"><div class="cta-card"><div><h3>Want this kind of thinking applied to your growth?</h3><p>Book a free growth audit with the LateNightBirds team.</p></div><a class="btn btn-solid" href="mailto:{EMAIL}?subject=Free%20Growth%20Audit">Book a Free Growth Audit <i>→</i></a></div></div>
 <section class="more"><div class="section-head"><h2 class="eyebrow">More to read</h2><a class="link-arrow" href="/blog/">All articles →</a></div><div class="posts">{"".join(card(x) for x in others)}</div></section>
@@ -344,6 +393,7 @@ def write(rel, content):
 
 def main():
     posts = load_posts()
+    BY_SLUG.update({x["slug"]: x for x in posts})
     write("index.html", home(posts))
     write("blog/index.html", blog_index(posts))
     for p in posts:
