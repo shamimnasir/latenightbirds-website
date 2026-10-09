@@ -44,24 +44,48 @@ ARTICLE = dict(
 <div class="note"><strong>Important:</strong> Claude works with what you give it. It can read files you upload and pages you point it to, but it cannot see your accounts unless you provide an export or use a connected tool you have authorized.</div>
 
 <h2>Step 1: Load your business context</h2>
-<p>Paste this once at the start of a project. Every later prompt becomes sharper because Claude knows who you are and what matters.</p>
+<p>Paste this once at the start of a project. Fill in every bracket, then ask Claude to confirm its understanding before you run anything else. Every later prompt becomes sharper because Claude knows who you are, what you sell and what you are not allowed to claim.</p>
 <h3>Prompt 1: Business context</h3>
-<pre><code>You are my SEO analyst. Save the context below and use it for every task in this project. Do not ask me for it again.
+<pre><code>
+You are my SEO analyst. Save the business context below and use it for every task in this project. Do not ask me for these details again unless a task needs something missing.
 
-Business: [business name], website [URL], Google Business Profile [URL]
-Primary service: [service]
-Other services: [service 2], [service 3]
-Service areas: [city 1], [city 2], [city 3]
-Ideal customer: [one sentence]
-90-day goal: [for example, more qualified inquiries from search]
-Biggest SEO problem right now: [one honest sentence]
+BUSINESS
+- Name and legal entity: [business name]
+- Website: [URL]
+- Google Business Profile: [URL]
+- Location and service areas: [main city], plus [city 2], [city 3]
+- Years in business and team size: [years], [solo / small team / larger team]
 
-Rules:
-- Lead with quick wins, then longer projects.
-- Label each recommendation high, medium or low impact, with an estimate of how long results take.
-- Use tables for comparisons.
-- If you are unsure, say so. Do not guess numbers.
-- Never invent reviews, statistics, awards or client names.</code></pre>
+SERVICES AND CUSTOMERS
+- Main service (highest revenue): [service]
+- Other services: [service 2], [service 3]
+- Ideal customer: [who they are, the problem they have, what triggers the search]
+- Typical job value: [amount or range]
+- Where most leads come from today: [search, referrals, ads, other]
+
+GOALS (next 90 days)
+- Main goal: [for example, more booked calls from search]
+- Keywords I most want to rank for: [keyword 1], [keyword 2], [keyword 3]
+- Pages that already bring leads: [URLs, if known]
+
+CURRENT SITUATION
+- Biggest SEO problem, in one honest sentence: [problem]
+- What has already been tried, and the result: [agency, tools, content, links]
+- Competitors I am compared against: [name, website] for each
+- Constraints: [budget, hours per week, who approves changes, no-go areas]
+
+HOW YOU SHOULD WORK
+1. Before starting, list any fields above that are blank and matter for the task. Ask me once, then continue.
+2. Lead with quick wins, then longer projects.
+3. For each recommendation, give the impact (high, medium or low), the effort, and how long results usually take.
+4. Use tables for comparisons and numbered steps for actions.
+5. Separate facts from assumptions. Mark anything you inferred.
+6. If you are unsure, say so. Never guess numbers, rankings or traffic.
+7. Never invent reviews, statistics, awards, certifications or client names.
+8. Never promise rankings or results.
+
+Confirm your understanding in five bullet points, listing the main goal, the top service, the service areas, the biggest problem and the first action you recommend.
+</code></pre>
 
 <h2>Step 2: Analyze search performance</h2>
 <p>This is the core of the monthly loop. Export the last 90 days of queries and pages from Search Console, then upload both files.</p>
