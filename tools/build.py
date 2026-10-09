@@ -17,8 +17,9 @@ SITE = "https://latenightbirds.com"
 EMAIL = "mail@latenightbirds.com"
 AUTHOR = {
     "name": "Nasir Uddin Shamim",
+    "role": "Head of Ideas, LateNightBirds LLC",
     "photo": "/assets/author/nasir-uddin-shamim.jpg",
-    "bio": "Nasir Uddin Shamim writes about SEO, AI marketing and automation for LateNightBirds LLC, an AI marketing and automation agency.",
+    "bio": "Nasir Uddin Shamim is Head of Ideas at LateNightBirds LLC. He is based in Dhaka, Bangladesh, and works in SEO and digital marketing. In 2018 he founded NShamimPRO, an online training platform for blogging and SEO.",
 }
 YEAR = datetime.now().year
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
@@ -371,7 +372,7 @@ def takeaways_html(p):
 
 def author_box():
     return (f'<aside class="author-box" aria-label="About the author"><img src="{AUTHOR["photo"]}" alt="{AUTHOR["name"]}" width="96" height="96">'
-            f'<div><p class="tk-label">Written by</p><p class="ab-name">{AUTHOR["name"]}</p><p>{AUTHOR["bio"]}</p>'
+            f'<div><p class="tk-label">Written by</p><p class="ab-name">{AUTHOR["name"]}</p><p class="ab-role">{AUTHOR["role"]}</p><p>{AUTHOR["bio"]}</p>'
             f'<p><a href="/#contact">Contact the team</a></p></div></aside>')
 
 
