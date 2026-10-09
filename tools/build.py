@@ -15,6 +15,12 @@ from articles import ARTICLES, COVER, RELATED
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://latenightbirds.com"
 EMAIL = "mail@latenightbirds.com"
+SOCIAL = [
+    ("LinkedIn", "https://linkedin.com/in/shamims"),
+    ("Facebook", "https://facebook.com/NasirUShamim"),
+    ("X", "https://x.com/nusagain"),
+]
+
 AUTHOR = {
     "name": "Nasir Uddin Shamim",
     "role": "Head of Ideas, LateNightBirds LLC",
@@ -156,12 +162,17 @@ def header(active):
     {a("/#services", "Services", "services")}
     {a("/#process", "Process", "process")}
     {a("/#results", "Results", "results")}
+    {a("/about/", "About", "about")}
     {a("/blog/", "Blog", "blog")}
     <button class="toggle" id="themeToggle" aria-label="Toggle dark mode"><span></span></button>
     <a class="btn btn-solid btn-sm" href="/#contact">Book a Call <i>→</i></a>
   </nav>
 </div></header>
 '''
+
+
+def social_links():
+    return "".join(f'<a href="{url}" rel="me noopener" target="_blank">{name}</a>' for name, url in SOCIAL)
 
 
 def footer():
@@ -176,8 +187,8 @@ def footer():
       <a class="brand" href="/"><img src="/assets/logo-mark.svg" alt="" width="34" height="34"><span>Late<b>Night</b>Birds<sup>®</sup></span></a>
       <p>An AI marketing and automation agency. We build growth systems that keep working after the office lights go off.</p>
     </div>
-    <div><h4>Explore</h4><a href="/#services">Services</a><a href="/#process">Process</a><a href="/#results">Results</a><a href="/blog/">Blog</a></div>
-    <div><h4>Contact</h4><a href="mailto:{EMAIL}">{EMAIL}</a><a href="/#top">Back to top ↑</a></div>
+    <div><h4>Explore</h4><a href="/#services">Services</a><a href="/#process">Process</a><a href="/#results">Results</a><a href="/about/">About us</a><a href="/blog/">Blog</a></div>
+    <div><h4>Contact</h4><a href="mailto:{EMAIL}">{EMAIL}</a>{social_links()}<a href="/#top">Back to top ↑</a></div>
   </div>
   <div class="legal"><span>© {YEAR} LateNightBirds LLC. All rights reserved.</span><span>Made with <span class="heart">♥</span> after dark</span></div>
 </footer>
@@ -441,6 +452,81 @@ def write(rel, content):
     f.write_text(content, encoding="utf-8")
 
 
+def about_page():
+    desc = ("About LateNightBirds LLC, an AI marketing and automation agency, and its Head of Ideas, Nasir Uddin Shamim.")
+    out = head("About us | LateNightBirds", desc, "/about/")
+    out += header("about")
+    steps = [("Audit", "We map where your next customer comes from and where budget leaks."),
+             ("Strategize", "Data and buyer behavior shape a plan built for your business model."),
+             ("Automate", "AI handles research, production and routine work. Strategists keep judgment and quality high."),
+             ("Compound", "We measure, refine and scale what works, month after month.")]
+    step_html = "".join(f"<li><b>{t}</b><span>{d}</span></li>" for t, d in steps)
+    social = "".join(f'<a class="btn btn-ghost btn-sm" href="{url}" rel="me noopener" target="_blank">{name}</a>' for name, url in SOCIAL)
+    out += f"""<main id="main">
+<div class="blog-head">
+  <p class="eyebrow">About LateNightBirds</p>
+  <h1>Growth that keeps working <em>after the office lights go off.</em></h1>
+  <p>We are an AI marketing and automation agency. We build search, content and automation systems that attract customers, convert them and scale with your business.</p>
+</div>
+
+<section class="list block">
+  <h2 class="eyebrow">Who we are</h2>
+  <p class="statement">LateNightBirds LLC helps businesses grow with systems instead of guesswork.</p>
+  <p class="sub">Most marketing fails for predictable reasons: content that does not convert, ads that burn cash, and rankings that disappear. We replace that noise with clear, measurable work.</p>
+</section>
+
+<section class="list block">
+  <h2 class="eyebrow">What we do</h2>
+  <div class="cards">
+    <article class="card"><span class="num">01</span><h3>AI-Focused SEO</h3><p>Visibility in search results and in AI answers, built on clear, trustworthy content.</p></article>
+    <article class="card"><span class="num">02</span><h3>Content &amp; Ethical Link Acquisition</h3><p>Content that educates and sells, backed by links earned the right way.</p></article>
+    <article class="card"><span class="num">03</span><h3>Marketing Automation</h3><p>AI workflows for lead follow-up, nurturing, reporting and reviews.</p></article>
+    <article class="card"><span class="num">04</span><h3>Web Launch &amp; Growth</h3><p>Strategy, design, content and implementation, launched properly and built to convert.</p></article>
+  </div>
+</section>
+
+<section class="list block">
+  <h2 class="eyebrow">How we work</h2>
+  <ol class="steps">{step_html}</ol>
+</section>
+
+<section class="list block">
+  <h2 class="eyebrow">By the numbers</h2>
+  <ul class="stats" aria-label="Agency highlights">
+    <li><b>20+</b><span>Years of combined experience</span></li>
+    <li><b>350+</b><span>Happy clients</span></li>
+    <li><b>98%</b><span>Client satisfaction</span></li>
+  </ul>
+</section>
+
+<section class="list block">
+  <h2 class="eyebrow">Leadership</h2>
+  <div class="author-box">
+    <img src="{AUTHOR['photo']}" alt="{AUTHOR['name']}" width="96" height="96">
+    <div>
+      <p class="tk-label">Head of Ideas</p>
+      <p class="ab-name">{AUTHOR['name']}</p>
+      <p class="ab-role">{AUTHOR['role']}</p>
+      <p>{AUTHOR['bio']}</p>
+      <p>{social}</p>
+    </div>
+  </div>
+</section>
+
+<section class="list block">
+  <h2 class="eyebrow">Our values</h2>
+  <div class="why">
+    <div><h3>Data first</h3><p>Decisions follow evidence from your own numbers, not trends.</p></div>
+    <div><h3>Honest results</h3><p>We say what is working, what is not, and what we are not sure about.</p></div>
+    <div><h3>Built to last</h3><p>We avoid shortcuts that create penalties and future rework.</p></div>
+  </div>
+</section>
+</main>
+"""
+    return out + footer()
+
+
+
 def main():
     posts = load_posts()
     BY_SLUG.update({x["slug"]: x for x in posts})
@@ -449,11 +535,12 @@ def main():
     for p in posts:
         write(f"blog/{p['slug']}/index.html", post_page(p, posts))
     write("404.html", not_found())
+    write("about/index.html", about_page())
     # keep old WordPress URLs alive
     redirects = [f"/{p['slug']}/ /blog/{p['slug']}/ 301" for p in posts]
-    redirects += ["/about/ /#top 301", "/services/ /#services 301", "/contact/ /#contact 301", "/home/ / 301"]
+    redirects += ["/services/ /#services 301", "/contact/ /#contact 301", "/home/ / 301"]
     write("_redirects", "\n".join(redirects) + "\n")
-    urls = ["/", "/blog/"] + [f"/blog/{p['slug']}/" for p in posts]
+    urls = ["/", "/about/", "/blog/"] + [f"/blog/{p['slug']}/" for p in posts]
     sm = ['<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     sm += [f"<url><loc>{SITE}{u}</loc></url>" for u in urls] + ["</urlset>"]
     write("sitemap.xml", "\n".join(sm) + "\n")

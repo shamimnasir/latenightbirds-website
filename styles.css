@@ -258,3 +258,7 @@ cite{display:block;margin-top:12px;font:500 13px var(--sans);font-style:normal;c
 .author-box .tk-label{font:600 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink)}
 @media (max-width:560px){.author-box{flex-direction:column;align-items:flex-start}}
 .author-box .ab-role{font:500 14px var(--sans);color:var(--muted);margin-bottom:10px}
+
+/* about page */
+.author-box .btn-sm{margin:4px 8px 0 0;padding:7px 14px;font-size:13px}
+.foot a[target="_blank"]::after{content:" ↗";font-size:11px;opacity:.6}
