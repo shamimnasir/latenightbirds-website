@@ -97,6 +97,7 @@ def load_posts():
             img=f"cover-{a['slug']}.svg", date=dt, pretty=dt.strftime("%B %-d, %Y"), iso=dt.date().isoformat(),
             mins=max(1, math.ceil(len(text.split()) / 230)),
             takeaways=[nodash(t) for t in a["takeaways"]],
+            flow=[nodash(t) for t in a.get("flow", [])],
             faqs=[(nodash(q), nodash(v)) for q, v in a["faqs"]],
         ))
     posts.sort(key=lambda x: x["date"], reverse=True)
@@ -319,6 +320,42 @@ def blog_index(posts):
     return out + footer()
 
 
+def flow_figure(p):
+    """Writes a small process graphic for an article and returns its <figure> markup.
+
+    Colors are fixed (no CSS variables) because the SVG is loaded through <img>,
+    where page styles do not apply. The indigo tiles read well in both themes.
+    """
+    import textwrap
+    steps = p.get("flow") or []
+    if not steps:
+        return ""
+    n = len(steps)
+    w, box, gap = 720, 150, 20
+    total = n * box + (n - 1) * gap
+    x0 = (w - total) // 2
+    parts = []
+    for i, label in enumerate(steps):
+        x = x0 + i * (box + gap)
+        parts.append(f'<rect x="{x}" y="50" width="{box}" height="110" rx="16" fill="#1f2345"/>')
+        parts.append(f'<circle cx="{x + 26}" cy="78" r="15" fill="#e8a33d"/>')
+        parts.append(f'<text x="{x + 26}" y="83" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1f2345">{i + 1}</text>')
+        lines = textwrap.wrap(label, width=15)[:2]
+        for k, line in enumerate(lines):
+            ty = 120 + k * 20
+            parts.append(f'<text x="{x + 14}" y="{ty}" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#fffefd">{html.escape(line)}</text>')
+        if i < n - 1:
+            ax = x + box + 3
+            parts.append(f'<path d="M{ax} 105 h{gap - 6}" stroke="#e8a33d" stroke-width="3" stroke-linecap="round"/>')
+            parts.append(f'<path d="M{ax + gap - 10} 99 l8 6 -8 6" fill="none" stroke="#e8a33d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>')
+    svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} 200" role="img" '
+           f'aria-label="{html.escape(p["title"])}: {html.escape(" then ".join(steps))}">'
+           + "".join(parts) + "</svg>")
+    name = f'flow-{p["slug"]}.svg'
+    (ROOT / "blog" / "img" / name).write_text(svg, encoding="utf-8")
+    return f'<figure class="flow"><img src="/blog/img/{name}" alt="Process overview: {html.escape(" then ".join(steps))}" width="720" height="200" loading="lazy"></figure>'
+
+
 def takeaways_html(p):
     items = p.get("takeaways")
     if not items:
@@ -367,7 +404,7 @@ def post_page(p, posts):
 <h1>{html.escape(p["title"])}</h1>
 <div class="byline"><img src="/assets/logo-mark.svg" alt="" width="42" height="42"><div><b>LateNightBirds Team</b><span>{p["pretty"]} · {p["mins"]} min read</span></div></div>
 <figure class="hero-img"><img src="/blog/img/{p["img"]}" alt="" width="720" height="480"></figure>
-{takeaways_html(p)}<div class="prose">{p["body"]}</div>
+{takeaways_html(p)}{flow_figure(p)}<div class="prose">{p["body"]}</div>
 {faq_html(faqs)}
 {related_html(p, BY_SLUG)}
 </article>
