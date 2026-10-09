@@ -4,4 +4,4 @@ Static site (HTML/CSS/JS, no build step) for latenightbirds.com — AI Marketing
 Design inspired by palakonweb.in.
 
 - Local preview: `python3 -m http.server 8765`
-- Deploy: Cloudflare Pages, build command none, output directory `/`
+- Deploy: `npx wrangler deploy` (Cloudflare Workers static assets; config in wrangler.jsonc)
