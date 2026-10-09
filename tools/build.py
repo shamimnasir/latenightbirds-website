@@ -15,6 +15,11 @@ from articles import ARTICLES, COVER, RELATED
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://latenightbirds.com"
 EMAIL = "mail@latenightbirds.com"
+AUTHOR = {
+    "name": "Nasir Uddin Shamim",
+    "photo": "/assets/author/nasir-uddin-shamim.jpg",
+    "bio": "Nasir Uddin Shamim writes about SEO, AI marketing and automation for LateNightBirds LLC, an AI marketing and automation agency.",
+}
 YEAR = datetime.now().year
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
@@ -364,6 +369,12 @@ def takeaways_html(p):
     return f'<aside class="takeaways" aria-label="Key takeaways"><p class="tk-label">Key takeaways</p><ul>{lis}</ul></aside>'
 
 
+def author_box():
+    return (f'<aside class="author-box" aria-label="About the author"><img src="{AUTHOR["photo"]}" alt="{AUTHOR["name"]}" width="96" height="96">'
+            f'<div><p class="tk-label">Written by</p><p class="ab-name">{AUTHOR["name"]}</p><p>{AUTHOR["bio"]}</p>'
+            f'<p><a href="/#contact">Contact the team</a></p></div></aside>')
+
+
 def related_html(p, by_slug):
     slugs = RELATED.get(p["slug"], [])
     items = [by_slug[s] for s in slugs if s in by_slug]
@@ -386,7 +397,7 @@ BY_SLUG = {}
 def post_page(p, posts):
     url = f"/blog/{p['slug']}/"
     ld = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": p["title"], "datePublished": p["iso"],
-          "image": f"{SITE}/blog/img/{p['img']}", "author": {"@type": "Organization", "name": "LateNightBirds"},
+          "image": f"{SITE}/blog/img/{p['img']}", "author": {"@type": "Person", "name": AUTHOR["name"]},
           "publisher": {"@type": "Organization", "name": "LateNightBirds LLC", "logo": {"@type": "ImageObject", "url": SITE + "/assets/logo-mark.svg"}},
           "mainEntityOfPage": SITE + url}
     faqs = p.get("faqs", [])
@@ -402,10 +413,11 @@ def post_page(p, posts):
     out += f'''<main id="main"><article class="article">
 <p class="crumbs"><a href="/blog/">← All articles</a></p>
 <h1>{html.escape(p["title"])}</h1>
-<div class="byline"><img src="/assets/logo-mark.svg" alt="" width="42" height="42"><div><b>LateNightBirds Team</b><span>{p["pretty"]} · {p["mins"]} min read</span></div></div>
+<div class="byline"><img src="{AUTHOR['photo']}" alt="{AUTHOR['name']}" width="44" height="44"><div><b>{AUTHOR['name']}</b><span>{p["pretty"]} · {p["mins"]} min read</span></div></div>
 <figure class="hero-img"><img src="/blog/img/{p["img"]}" alt="" width="720" height="480"></figure>
 {takeaways_html(p)}{flow_figure(p)}<div class="prose">{p["body"]}</div>
 {faq_html(faqs)}
+{author_box()}
 {related_html(p, BY_SLUG)}
 </article>
 <div class="after"><div class="cta-card"><div><h3>Want this kind of thinking applied to your growth?</h3><p>Book a free growth audit with the LateNightBirds team.</p></div><a class="btn btn-solid" href="mailto:{EMAIL}?subject=Free%20Growth%20Audit">Book a Free Growth Audit <i>→</i></a></div></div>
