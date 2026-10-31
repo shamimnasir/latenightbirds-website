@@ -527,6 +527,110 @@ def about_page():
 
 
 
+# ---------- Fliplo app pages (linked from the iOS app and its App Store listing) ----------
+FLIPLO_STORE = "https://apps.apple.com/app/id6770587441"
+
+
+def legal_page(title, desc, path, eyebrow, heading, updated, body):
+    out = head(f"{title} | LateNightBirds", desc, path)
+    out += header("")
+    out += f"""<main id="main">
+<article class="article">
+  <p class="eyebrow">{eyebrow}</p>
+  <h1>{heading}</h1>
+  <p class="sub">{updated}</p>
+  <div class="prose">
+{body}
+  </div>
+</article>
+</main>
+"""
+    return out + footer()
+
+
+def fliplo_privacy_page():
+    body = f"""<p><strong>Short version:</strong> Fliplo does not collect, store or sell your personal data. Your projects stay on your device. We have no servers that receive your drawings.</p>
+
+<h2>Who we are</h2>
+<p>Fliplo: Frame-by-Frame Animate ("Fliplo", "the app") is published by LateNightBirds LLC ("we", "us"). Questions about this policy: <a href="mailto:{EMAIL}?subject=Fliplo%20privacy">{EMAIL}</a>.</p>
+
+<h2>Data we do not collect</h2>
+<ul>
+<li>No accounts or sign-in.</li>
+<li>No name, email address or other contact details.</li>
+<li>No uploads of your drawings or projects to any server we run.</li>
+<li>No location tracking.</li>
+<li>No advertising and no ad networks.</li>
+<li>No third-party analytics or tracking SDKs.</li>
+</ul>
+
+<h2>Data stored on your device</h2>
+<p>Your projects, frames, layers, audio and settings are stored only on your device, using Apple's on-device database. They leave your device only when you export or share a file yourself. Deleting the app deletes this data.</p>
+
+<h2>Photos</h2>
+<p>When you import a picture, Fliplo uses Apple's photo picker, so the app only receives the image you choose and cannot see the rest of your library. When you tap "Save to Photos", iOS asks for permission to add the exported file to your library. Fliplo does not read your existing photos.</p>
+
+<h2>Microphone</h2>
+<p>If you record an audio track for a project (a Pro feature), iOS asks for microphone access. Recordings are stored on your device as part of that project and are never transmitted by us.</p>
+
+<h2>In-app purchase</h2>
+<p>Fliplo Pro is a one-time purchase processed by Apple. We never see your payment details. The app asks Apple's StoreKit on your device whether Pro is unlocked. See <a href="https://www.apple.com/legal/privacy/" rel="noopener" target="_blank">Apple's privacy policy</a> for how Apple handles purchase data.</p>
+
+<h2>Analytics and crash reports</h2>
+<p>Fliplo contains no analytics or crash-reporting SDK. If you have chosen to share analytics with app developers in your iPhone or iPad settings, Apple may give us anonymised usage statistics and crash reports through App Store Connect. This is controlled by you and governed by Apple's privacy policy.</p>
+
+<h2>Children</h2>
+<p>Fliplo is suitable for all ages. Because it collects no personal data, it collects none from children.</p>
+
+<h2>Your rights</h2>
+<p>We hold no personal data about you, so there is nothing for us to provide, correct or delete. You can delete everything Fliplo stores at any time by deleting the app.</p>
+
+<h2>Changes to this policy</h2>
+<p>If we change this policy, we will update the date at the top of this page.</p>
+
+<h2>Contact</h2>
+<p>LateNightBirds LLC<br><a href="mailto:{EMAIL}?subject=Fliplo%20privacy">{EMAIL}</a></p>"""
+    return legal_page(
+        "Fliplo Privacy Policy",
+        "Privacy policy for Fliplo: Frame-by-Frame Animate. Fliplo collects no personal data; your projects stay on your device.",
+        "/fliplo-privacy/", "Fliplo", "Privacy Policy",
+        "Last updated: 31 October 2026", body)
+
+
+def fliplo_support_page():
+    body = f"""<p>Fliplo is a frame-by-frame animation app for iPhone and iPad. If something isn't working, or you have an idea, email us at <a href="mailto:{EMAIL}?subject=Fliplo%20support">{EMAIL}</a>. Please include your device model, iOS version and the Fliplo version (Settings, at the bottom of the screen). We usually reply within two working days.</p>
+
+<p><a class="btn btn-solid" href="mailto:{EMAIL}?subject=Fliplo%20support">Email Fliplo support <i>→</i></a> <a class="btn btn-ghost" href="{FLIPLO_STORE}" rel="noopener" target="_blank">View on the App Store</a></p>
+
+<h2>Common questions</h2>
+
+<h3>How do I restore Fliplo Pro on a new device?</h3>
+<p>Sign in with the same Apple ID you bought Pro with, then open Fliplo, go to Settings and tap <strong>Restore Purchase</strong>. Pro is a one-time purchase and Family Sharing is supported.</p>
+
+<h3>What does the free version include?</h3>
+<p>Up to 48 frames and 3 layers per frame, every drawing tool, onion skin, and GIF and PNG export. Free GIFs carry a small "Made with Fliplo" watermark. Fliplo Pro removes the limits and the watermark and adds MP4 export, audio, the speed graph, frame filters and crossfade inbetweens.</p>
+
+<h3>Where do my exports go?</h3>
+<p>After an export finishes, tap <strong>Share</strong> to send it to another app or <strong>Save to Photos</strong> to keep it in your library.</p>
+
+<h3>Are my projects backed up?</h3>
+<p>Projects are saved on your device automatically. They are included in your device's iCloud or computer backup, but Fliplo does not sync projects between devices yet.</p>
+
+<h3>Fliplo said my projects couldn't be opened</h3>
+<p>If Fliplo can't open its project library, it keeps a copy of your projects on your device instead of deleting them and starts with an empty library. Email us and we'll help you recover them. Please don't delete the app, as that removes the copy.</p>
+
+<h3>How do I get a refund?</h3>
+<p>Purchases are handled by Apple. You can request a refund at <a href="https://reportaproblem.apple.com" rel="noopener" target="_blank">reportaproblem.apple.com</a>.</p>
+
+<h2>Privacy</h2>
+<p>Fliplo collects no personal data. Read the full <a href="/fliplo-privacy/">Fliplo privacy policy</a>.</p>"""
+    return legal_page(
+        "Fliplo Support",
+        "Get help with Fliplo: Frame-by-Frame Animate. Contact support, restore Fliplo Pro and find answers to common questions.",
+        "/fliplo-support/", "Fliplo", "Support",
+        "Help with Fliplo: Frame-by-Frame Animate for iPhone and iPad.", body)
+
+
 def main():
     posts = load_posts()
     BY_SLUG.update({x["slug"]: x for x in posts})
@@ -536,11 +640,13 @@ def main():
         write(f"blog/{p['slug']}/index.html", post_page(p, posts))
     write("404.html", not_found())
     write("about/index.html", about_page())
+    write("fliplo-privacy/index.html", fliplo_privacy_page())
+    write("fliplo-support/index.html", fliplo_support_page())
     # keep old WordPress URLs alive
     redirects = [f"/{p['slug']}/ /blog/{p['slug']}/ 301" for p in posts]
     redirects += ["/services/ /#services 301", "/contact/ /#contact 301", "/home/ / 301"]
     write("_redirects", "\n".join(redirects) + "\n")
-    urls = ["/", "/about/", "/blog/"] + [f"/blog/{p['slug']}/" for p in posts]
+    urls = ["/", "/about/", "/blog/", "/fliplo-privacy/", "/fliplo-support/"] + [f"/blog/{p['slug']}/" for p in posts]
     sm = ['<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     sm += [f"<url><loc>{SITE}{u}</loc></url>" for u in urls] + ["</urlset>"]
     write("sitemap.xml", "\n".join(sm) + "\n")
