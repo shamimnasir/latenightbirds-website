@@ -631,6 +631,104 @@ def fliplo_support_page():
         "Help with Fliplo: Frame-by-Frame Animate for iPhone and iPad.", body)
 
 
+# ---------- Fliplo landing page and guides ----------
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from fliplo_guides import GUIDES  # noqa: E402
+
+FLIPLO_META = '<meta name="apple-itunes-app" content="app-id=6770587441">'
+FLIPLO_SHOTS = [("draw", "Drawing a frame with onion skin"), ("tools", "Drawing tools and layers"),
+                ("timeline", "Timeline with frames"), ("export", "Export a GIF or MP4"), ("home", "Your projects")]
+
+
+def store_btn(label="Download on the App Store"):
+    return f'<a class="btn btn-solid big" href="{FLIPLO_STORE}" rel="noopener" target="_blank">{label} <i>→</i></a>'
+
+
+def fliplo_landing_page():
+    faqs = [
+        ("Is Fliplo free?", "Yes. You can draw up to 48 frames and 3 layers per frame and export GIFs and PNGs for free. Free GIFs carry a small Made with Fliplo mark."),
+        ("What does Fliplo Pro cost?", "Pro is a single one-time purchase, with no subscription. It unlocks unlimited frames and layers, removes the watermark, and adds MP4 export, audio, the speed graph, frame filters and crossfade inbetweens."),
+        ("Does it work with Apple Pencil?", "Yes. Fliplo runs on iPhone and iPad and uses pressure-sensitive Apple Pencil strokes. You can also draw with your finger."),
+        ("Is it suitable for kids?", "Yes. Fliplo is rated 4+, has large tap targets, a friendly Oops undo button, no ads, no accounts and collects no personal data."),
+        ("Where are my drawings stored?", "On your device only. They leave it when you export or share a file yourself."),
+    ]
+    ld = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Fliplo: Frame-by-Frame Animate",
+          "operatingSystem": "iOS, iPadOS", "applicationCategory": "DesignApplication",
+          "description": "A simple frame-by-frame animation app for iPhone and iPad with onion skin, layers and GIF and MP4 export.",
+          "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "url": SITE + "/fliplo/",
+          "publisher": {"@type": "Organization", "name": "LateNightBirds LLC"}}
+    fq = {"@context": "https://schema.org", "@type": "FAQPage",
+          "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]}
+    extra = FLIPLO_META + f'<script type="application/ld+json">{json.dumps(ld)}</script><script type="application/ld+json">{json.dumps(fq)}</script>'
+    out = head("Fliplo: Frame-by-Frame Animation App for iPhone and iPad | LateNightBirds",
+               "Draw frame by frame with onion skin and layers, then export a GIF or MP4. Free to start, Pro is one purchase with no subscription.",
+               "/fliplo/", extra=extra)
+    out += header("")
+    feats = [
+        ("Draw by hand", "Pencil, brush, marker, eraser, fill, lasso, mirror and ruler, with Apple Pencil pressure."),
+        ("Onion skin", "See up to 5 frames before and after the one you are drawing, in colours you choose."),
+        ("Layers", "Multiple layers per frame with opacity, lock and 10 blend modes."),
+        ("Timeline", "Add, duplicate and reorder frames. Hold a frame longer to control timing."),
+        ("Share anywhere", "Export a looping GIF, an MP4 video with audio (Pro) or a PNG of the current frame."),
+        ("Made for everyone", "Large tap targets, a one tap Oops undo and a help guide for every tool."),
+    ]
+    shots = "".join(f'<img src="/assets/fliplo/{n}.jpg" alt="{html.escape(a)}" width="210" height="454" loading="lazy">' for n, a in FLIPLO_SHOTS)
+    guides = "".join(f'<a href="/fliplo/guides/{g["slug"]}/"><b>{html.escape(g["title"])}</b><span>{html.escape(g["teaser"])}</span></a>' for g in GUIDES)
+    faq_html_ = "".join(f"<details><summary>{html.escape(q)}</summary><p>{html.escape(a)}</p></details>" for q, a in faqs)
+    out += f"""<main id="main">
+<section class="fl-hero">
+  <div>
+    <img class="fl-icon" src="/assets/fliplo/icon.png" alt="Fliplo app icon" width="72" height="72">
+    <h1>Draw it. Flip it. Share it.</h1>
+    <p class="lead">Fliplo is a simple frame-by-frame animation app for iPhone and iPad. Draw every frame, see the ones around it with onion skin, then export a GIF or MP4.</p>
+    <div class="fl-cta">{store_btn()}<a class="btn btn-ghost" href="/fliplo-support/">Support</a></div>
+    <p class="fl-note">Free to start. Fliplo Pro is one purchase, no subscription. iPhone and iPad, iOS 17 or later.</p>
+  </div>
+  <div class="fl-phone"><img src="/assets/fliplo/draw.jpg" alt="Fliplo drawing screen with onion skin" width="540" height="1168"></div>
+</section>
+<section class="fl-section"><h2>See it in action</h2><div class="fl-shots">{shots}</div></section>
+<section class="fl-section"><h2>Everything you need to animate</h2><div class="fl-grid">{"".join(f'<div class="fl-card"><h3>{t}</h3><p>{d}</p></div>' for t, d in feats)}</div></section>
+<section class="fl-section"><h2>Free and Pro</h2><div class="fl-price">
+  <div class="fl-card"><h3>Free</h3><ul><li>48 frames and 3 layers per frame</li><li>Every drawing tool and onion skin</li><li>GIF and PNG export</li><li>Small Made with Fliplo mark on GIFs</li></ul></div>
+  <div class="fl-card"><h3>Fliplo Pro, one purchase</h3><ul><li>Unlimited frames and layers</li><li>No watermark</li><li>MP4 export and audio</li><li>Speed graph, frame filters, crossfade inbetweens</li></ul></div>
+</div></section>
+<section class="fl-section"><h2>Learn to animate</h2><div class="fl-guides">{guides}</div></section>
+<section class="fl-section fl-faq"><h2>Questions</h2>{faq_html_}</section>
+<section class="fl-end"><h2>Make your first animation today</h2><p class="fl-note" style="margin-bottom:18px">Fliplo collects no personal data. Your drawings stay on your device.</p>{store_btn("Get Fliplo free")}<p class="fl-note" style="margin-top:18px"><a href="/fliplo-privacy/">Privacy</a> · <a href="/fliplo-support/">Support</a></p></section>
+</main>
+"""
+    return out + footer()
+
+
+def fliplo_guide_page(g):
+    path = f"/fliplo/guides/{g['slug']}/"
+    ld = {"@context": "https://schema.org", "@type": "Article", "headline": g["title"], "description": g["desc"],
+          "author": {"@type": "Person", "name": AUTHOR["name"]},
+          "publisher": {"@type": "Organization", "name": "LateNightBirds LLC"}, "mainEntityOfPage": SITE + path}
+    fq = {"@context": "https://schema.org", "@type": "FAQPage",
+          "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in g["faqs"]]}
+    extra = FLIPLO_META + f'<script type="application/ld+json">{json.dumps(ld)}</script><script type="application/ld+json">{json.dumps(fq)}</script>'
+    out = head(f'{g["title"]} | Fliplo', g["desc"], path, og_type="article", extra=extra)
+    out += header("")
+    faqs = "".join(f"<h3>{html.escape(q)}</h3><p>{html.escape(a)}</p>" for q, a in g["faqs"])
+    others = "".join(f'<li><a href="/fliplo/guides/{x["slug"]}/">{html.escape(x["title"])}</a></li>' for x in GUIDES if x["slug"] != g["slug"])
+    out += f"""<main id="main">
+<article class="article">
+  <p class="crumbs"><a href="/fliplo/">← Fliplo</a></p>
+  <h1>{html.escape(g["title"])}</h1>
+  <div class="prose">{g["body"]}
+<h2>Questions</h2>
+{faqs}
+<h2>More guides</h2>
+<ul>{others}</ul>
+<p>{store_btn("Get Fliplo free")}</p>
+  </div>
+</article>
+</main>
+"""
+    return out + footer()
+
+
 def main():
     posts = load_posts()
     BY_SLUG.update({x["slug"]: x for x in posts})
@@ -642,16 +740,19 @@ def main():
     write("about/index.html", about_page())
     write("fliplo-privacy/index.html", fliplo_privacy_page())
     write("fliplo-support/index.html", fliplo_support_page())
+    write("fliplo/index.html", fliplo_landing_page())
+    for g in GUIDES:
+        write(f"fliplo/guides/{g['slug']}/index.html", fliplo_guide_page(g))
     # keep old WordPress URLs alive
     redirects = [f"/{p['slug']}/ /blog/{p['slug']}/ 301" for p in posts]
     redirects += ["/services/ /#services 301", "/contact/ /#contact 301", "/home/ / 301"]
     write("_redirects", "\n".join(redirects) + "\n")
-    urls = ["/", "/about/", "/blog/", "/fliplo-privacy/", "/fliplo-support/"] + [f"/blog/{p['slug']}/" for p in posts]
+    urls = ["/", "/about/", "/blog/", "/fliplo/", "/fliplo-privacy/", "/fliplo-support/"] + [f"/fliplo/guides/{g['slug']}/" for g in GUIDES] + [f"/blog/{p['slug']}/" for p in posts]
     sm = ['<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     sm += [f"<url><loc>{SITE}{u}</loc></url>" for u in urls] + ["</urlset>"]
     write("sitemap.xml", "\n".join(sm) + "\n")
     write("robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
-    bad = [f for f in list(ROOT.glob("*.html")) + list(ROOT.glob("blog/**/*.html")) if re.search("[–—]", f.read_text())]
+    bad = [f for f in list(ROOT.glob("*.html")) + list(ROOT.glob("blog/**/*.html")) + list(ROOT.glob("fliplo/**/*.html")) if re.search("[–—]", f.read_text())]
     print(f"built {len(posts)} posts; files containing long dashes: {[str(b) for b in bad]}")
 
 

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animate a bouncing ball in 12 frames | Fliplo</title>
+<meta name="description" content="A classic first animation exercise: a bouncing ball in 12 frames. Learn spacing, squash and stretch and looping on iPhone or iPad.">
+<link rel="canonical" href="https://latenightbirds.com/fliplo/guides/animate-a-bouncing-ball/">
+<meta property="og:site_name" content="LateNightBirds">
+<meta property="og:title" content="Animate a bouncing ball in 12 frames | Fliplo">
+<meta property="og:description" content="A classic first animation exercise: a bouncing ball in 12 frames. Learn spacing, squash and stretch and looping on iPhone or iPad.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://latenightbirds.com/fliplo/guides/animate-a-bouncing-ball/">
+<meta property="og:image" content="https://latenightbirds.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#fffefd">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+<meta name="apple-itunes-app" content="app-id=6770587441"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Animate a bouncing ball in 12 frames", "description": "A classic first animation exercise: a bouncing ball in 12 frames. Learn spacing, squash and stretch and looping on iPhone or iPad.", "author": {"@type": "Person", "name": "Nasir Uddin Shamim"}, "publisher": {"@type": "Organization", "name": "LateNightBirds LLC"}, "mainEntityOfPage": "https://latenightbirds.com/fliplo/guides/animate-a-bouncing-ball/"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How many frames does a bouncing ball need?", "acceptedAnswer": {"@type": "Answer", "text": "Twelve frames at 12 frames per second makes a one second bounce, which is a good starting exercise."}}, {"@type": "Question", "name": "What is squash and stretch?", "acceptedAnswer": {"@type": "Answer", "text": "It is the way objects deform when they move or hit something. It makes drawn motion feel alive and weighty."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header" id="hdr"><div class="header-in">
+  <a class="brand" href="/" aria-label="LateNightBirds home"><img src="/assets/logo-mark.svg" alt="" width="34" height="34"><span>Late<b>Night</b>Birds<sup>®</sup></span></a>
+  <button class="menu" id="menuBtn" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <nav class="nav" id="nav" aria-label="Primary">
+    <a href="/">Home</a>
+    <a href="/#services">Services</a>
+    <a href="/#process">Process</a>
+    <a href="/#results">Results</a>
+    <a href="/about/">About</a>
+    <a href="/blog/">Blog</a>
+    <button class="toggle" id="themeToggle" aria-label="Toggle dark mode"><span></span></button>
+    <a class="btn btn-solid btn-sm" href="/#contact">Book a Call <i>→</i></a>
+  </nav>
+</div></header>
+<main id="main">
+<article class="article">
+  <p class="crumbs"><a href="/fliplo/">← Fliplo</a></p>
+  <h1>Animate a bouncing ball in 12 frames</h1>
+  <div class="prose">
+<p>The bouncing ball is the first exercise in almost every animation course. It teaches timing, spacing and weight with the simplest possible subject. Fliplo even includes a Bouncing Ball template, but it is worth drawing your own once.</p>
+
+<h2>The plan: 12 frames</h2>
+<p>At 12 frames per second, 12 frames is exactly one second. We will make the ball fall, hit the ground, squash, and rise again. The loop then repeats.</p>
+
+<h2>Step by step</h2>
+<ol>
+<li><strong>Frame 1:</strong> draw the ball at the top of its bounce. This is the slowest moment, since it is changing direction.</li>
+<li><strong>Frames 2 to 4:</strong> the ball falls. Space the drawings further apart each time, because gravity makes it accelerate.</li>
+<li><strong>Frame 5:</strong> the ball touches the ground. Draw it slightly flattened.</li>
+<li><strong>Frame 6:</strong> the biggest squash. Wider and shorter, with the same overall area.</li>
+<li><strong>Frame 7:</strong> the ball stretches upward as it leaves the ground.</li>
+<li><strong>Frames 8 to 11:</strong> the ball rises. The spacing gets smaller as it slows down.</li>
+<li><strong>Frame 12:</strong> back near the top. It should lead smoothly into frame 1.</li>
+</ol>
+
+<h2>Spacing is the secret</h2>
+<p>Fast motion has big gaps between drawings. Slow motion has small gaps. Near the top of the bounce, put the drawings close together. Near the ground, spread them out. This one idea does more for believable movement than any amount of detail.</p>
+
+<h2>Squash and stretch</h2>
+<p>A real rubber ball deforms when it hits something. Drawing a flatter ball on impact and a slightly taller one as it speeds up gives it weight. Keep the volume roughly the same: if it gets wider, make it shorter.</p>
+
+<h2>Use hold durations for impact</h2>
+<p>Holding the impact frame a little longer can make the hit feel heavier. In Fliplo you can set a hold duration per frame, and both the preview and your exported GIF or MP4 follow it.</p>
+
+<h2>Next steps</h2>
+<ul>
+<li>Add a shadow that gets smaller as the ball rises.</li>
+<li>Make each bounce lower than the last, then let it roll to a stop.</li>
+<li>Try a heavier ball, such as a bowling ball, with less squash and fewer bounces.</li>
+</ul>
+
+<h2>Questions</h2>
+<h3>How many frames does a bouncing ball need?</h3><p>Twelve frames at 12 frames per second makes a one second bounce, which is a good starting exercise.</p><h3>What is squash and stretch?</h3><p>It is the way objects deform when they move or hit something. It makes drawn motion feel alive and weighty.</p>
+<h2>More guides</h2>
+<ul><li><a href="/fliplo/guides/make-a-gif-on-iphone/">How to make a GIF on your iPhone</a></li><li><a href="/fliplo/guides/onion-skinning-explained/">Onion skinning explained for beginners</a></li><li><a href="/fliplo/guides/flipbook-animation-ideas-for-kids/">Flipbook animation ideas for kids</a></li></ul>
+<p><a class="btn btn-solid big" href="https://apps.apple.com/app/id6770587441" rel="noopener" target="_blank">Get Fliplo free <i>→</i></a></p>
+  </div>
+</article>
+</main>
+<footer class="footer" id="contact">
+  <div class="cta-band">
+    <p class="eyebrow">Have an idea?</p>
+    <h2>Let's build something <em>together.</em></h2>
+    <a class="btn btn-solid big" href="mailto:mail@latenightbirds.com?subject=Free%20Growth%20Audit">Book a Free Growth Audit <i>→</i></a>
+  </div>
+  <div class="foot">
+    <div>
+      <a class="brand" href="/"><img src="/assets/logo-mark.svg" alt="" width="34" height="34"><span>Late<b>Night</b>Birds<sup>®</sup></span></a>
+      <p>An AI marketing and automation agency. We build growth systems that keep working after the office lights go off.</p>
+    </div>
+    <div><h4>Explore</h4><a href="/#services">Services</a><a href="/#process">Process</a><a href="/#results">Results</a><a href="/about/">About us</a><a href="/blog/">Blog</a></div>
+    <div><h4>Contact</h4><a href="mailto:mail@latenightbirds.com">mail@latenightbirds.com</a><a href="https://linkedin.com/in/shamims" rel="me noopener" target="_blank">LinkedIn</a><a href="https://facebook.com/NasirUShamim" rel="me noopener" target="_blank">Facebook</a><a href="https://x.com/nusagain" rel="me noopener" target="_blank">X</a><a href="/#top">Back to top ↑</a></div>
+  </div>
+  <div class="legal"><span>© 2026 LateNightBirds LLC. All rights reserved.</span><span>Made with <span class="heart">♥</span> after dark</span></div>
+</footer>
+<script src="/script.js"></script>
+</body>
+</html>
